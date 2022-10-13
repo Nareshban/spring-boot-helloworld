@@ -8,7 +8,7 @@ pipeline {
       }
        stage('build docker'){
             steps {
-              sh "docker build -t nareshban/hellospring:${BUILD}"
+              sh "docker build -t nareshban/hellospring:${BUILD_NUMBER}"
             }
 //             steps {
 //               script{
