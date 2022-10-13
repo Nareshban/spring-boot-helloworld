@@ -1,13 +1,12 @@
 pipeline {
   agent any
-
   stages {
-      stage('Build Artifact') {
+      stage('check out'){
             steps {
-              git branch: 'master',
-                credentialsId: 'my_cred_id',
-                url: 'ssh://git@test.com/proj/test_proj.git'
+              git branch: 'master', credentialsId: 'githubnaresh', url: 'https://github.com/Nareshban/spring-boot-helloworld.git'
             }
+      }
+       stage('build docker'){
             steps {
               sh "docker build -t nareshban/hellospring:${BUILD}"
             }
@@ -18,6 +17,6 @@ pipeline {
 //                    sh 'docker push nareshban/hellospring:${BUILD}'
 //                 }
 //             }
-        }
-    }
+      }
+  }
 }
