@@ -13,7 +13,7 @@ pipeline {
             steps {
               sh "docker build -t nareshbandari/hellospring:${BUILD_NUMBER}"
               sh "docker  push nareshbandari/hellospring:${BUILD_NUMBER}"
-            }
+            }}
 
        stage('Deploy in kube cluster'){
             steps {
