@@ -12,15 +12,12 @@ pipeline {
               sh "docker build -t nareshbandari/hellospring:${BUILD_NUMBER} ."
               sh "docker  push nareshbandari/hellospring:${BUILD_NUMBER}"
             }}
-
-       stage('Deploy in kube cluster'){
-            steps {
-              script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u nareshban -p ${dockerhubpwd}'}
-                   sh 'docker push nareshban/hellospring:${BUILD}'
+        stage('Deploy to k8s'){
+            steps{
+                script{
+                    kubernetesDeploy (configs: 'deploysvc.yaml',kubeconfigId: 'k8sconfigpwd')
                 }
             }
-      }
+        }
   }
 }
