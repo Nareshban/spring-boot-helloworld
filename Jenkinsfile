@@ -10,8 +10,11 @@ pipeline {
        stage('build docker'){
             steps {
               sh "docker build -t nareshbandari/hellospring:${BUILD_NUMBER} ."
+               withDockerRegistry([ credentialsId: "dockerhubnaresh", url: "" ]) {
               sh "docker  push nareshbandari/hellospring:${BUILD_NUMBER}"
-            }}
+              }
+            }
+       }
         stage('Deploy to k8s'){
             steps{
                 script{
